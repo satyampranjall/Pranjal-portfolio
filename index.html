@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranjal - Tech Innovator & Problem Solver</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .mono {
+            font-family: 'Courier New', monospace;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(12deg); }
+            50% { transform: translateY(-10px) rotate(12deg); }
+        }
+
+        @keyframes joyful-eyes {
+            0%, 100% { transform: scale(1); border-radius: 50%; opacity: 1; }
+            50% { transform: scale(1.3, 0.7); border-radius: 40% 40% 60% 60%; opacity: 0.9; }
+        }
+
+        @keyframes arm-wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg) translateY(-2px); }
+            75% { transform: rotate(-10deg) translateY(2px); }
+        }
+
+        @keyframes subtle-hover {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-joyful-eyes {
+            animation: joyful-eyes 0.8s ease-in-out infinite;
+        }
+
+        .animate-arm-wave {
+            animation: arm-wave 0.5s ease-in-out infinite;
+        }
+
+        .animate-robot-hover {
+            animation: subtle-hover 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); }
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .perspective-1500 {
+            perspective: 1500px;
+        }
+
+        .transform-gpu {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Background Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Noise and Gradient Overlays -->
+    <div class="fixed inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none z-[1]" style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E&quot;)"></div>
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] pointer-events-none z-[1]"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 flex justify-center p-6 pointer-events-none">
+        <div class="bg-black/80 backdrop-blur-xl border border-amber-500/20 px-8 py-3 rounded-full flex items-center gap-8 pointer-events-auto transition-all duration-300 shadow-2xl hover:border-amber-500/50">
+            <span class="text-amber-500 font-black mono tracking-tighter text-2xl mr-4 cursor-pointer hover:text-white transition-colors" onclick="scrollToSection('home')">
+                PRANJAL
+            </span>
+            <div class="hidden md:flex gap-8">
+                <button onclick="scrollToSection('home')" class="nav-link text-xs font-black uppercase tracking-widest text-slate-500 hover:text-white transition-all duration-200 relative group">
+                    Home
+                    <span class="absolute -bottom-1 left-0 h-0.5 bg-amber-500 w-0 group-hover:w-full transition-all duration-300"></span>
+                </button>
+                <button onclick="scrollToSection('skills')" class="nav-link text-xs font-black uppercase tracking-widest text-slate-500 hover:text-white transition-all duration-200 relative group">
+                    Skills
+                    <span class="absolute -bottom-1 left-0 h-0.5 bg-amber-500 w-0 group-hover:w-full transition-all duration-300"></span>
+                </button>
+                <button onclick="scrollToSection('projects')" class="nav-link text-xs font-black uppercase tracking-widest text-slate-500 hover:text-white transition-all duration-200 relative group">
+                    Projects
+                    <span class="absolute -bottom-1 left-0 h-0.5 bg-amber-500 w-0 group-hover:w-full transition-all duration-300"></span>
+                </button>
+            </div>
+            <button onclick="scrollToSection('contact')" class="bg-amber-500 hover:bg-amber-400 text-black text-[10px] font-black px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/20 tracking-widest uppercase">
+                CONNECT
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex flex-col items-center justify-between py-32 px-6 text-center">
+            <!-- Dito Robot -->
+            <div id="dito-robot" class="hidden fixed inset-0 z-[100] pointer-events-none perspective-1500">
+                <div id="dito-container" class="absolute transition-all duration-[2000ms] ease-in-out pointer-events-auto" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+                    <button onclick="closeDito()" class="absolute -top-24 -right-24 p-4 text-amber-500 hover:text-white transition-all bg-black/80 border border-amber-500/30 rounded-full hover:scale-110 shadow-[0_0_20px_rgba(251,191,36,0.2)] group">
+                        <svg class="w-6 h-6 transition-transform group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+
+                    <div class="relative transition-all duration-1000 transform-gpu opacity-100 scale-100">
+                        <div class="animate-robot-hover">
+                            <!-- Head -->
+                            <div class="relative w-36 h-28 bg-gradient-to-br from-white via-slate-100 to-slate-200 rounded-[55%_55%_45%_45%] shadow-[0_15px_35px_rgba(0,0,0,0.5),inset_0_-5px_15px_rgba(0,0,0,0.1)] border-b border-slate-300 flex items-center justify-center transform-gpu">
+                                <div class="w-[88%] h-[65%] bg-[#050505] rounded-[45%] border border-white/10 flex items-center justify-center gap-6 relative overflow-hidden shadow-inner">
+                                    <div class="absolute inset-0 bg-gradient-to-b from-cyan-900/10 to-transparent"></div>
+                                    <div class="flex gap-5 animate-joyful-eyes">
+                                        <div class="w-6 h-6 rounded-full bg-cyan-400 shadow-[0_0_20px_#22d3ee] flex items-center justify-center animate-pulse-glow">
+                                            <div class="w-1.5 h-1.5 bg-white/40 rounded-full absolute top-1 left-1"></div>
+                                        </div>
+                                        <div class="w-6 h-6 rounded-full bg-cyan-400 shadow-[0_0_20px_#22d3ee] flex items-center justify-center animate-pulse-glow">
+                                            <div class="w-1.5 h-1.5 bg-white/40 rounded-full absolute top-1 left-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="absolute top-3 left-8 w-12 h-6 bg-white/50 blur-[3px] rounded-full rotate-[-15deg]"></div>
+                            </div>
+
+                            <!-- Arms -->
+                            <div class="absolute top-32 -left-10 w-7 h-18 bg-white rounded-full shadow-lg origin-top transform-gpu animate-arm-wave shadow-[0_5px_15px_rgba(0,0,0,0.2)]"></div>
+                            <div class="absolute top-32 -right-10 w-7 h-18 bg-white rounded-full shadow-lg origin-top transform-gpu animate-arm-wave shadow-[0_5px_15px_rgba(0,0,0,0.2)]" style="animation-direction: reverse;"></div>
+
+                            <!-- Body -->
+                            <div class="w-32 h-44 bg-gradient-to-br from-white via-slate-50 to-slate-200 rounded-[45%_45%_55%_55%] mt-4 shadow-[0_25px_45px_rgba(0,0,0,0.4),inset_0_5px_15px_rgba(255,255,255,0.8)] border-b-2 border-slate-400/20 flex items-center justify-center overflow-hidden relative">
+                                <div class="w-5 h-5 rounded-full shadow-[0_0_15px] border border-white/20 bg-amber-500 shadow-amber-500 animate-pulse"></div>
+                                <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(251,191,36,0.05)_0%,transparent_60%)]"></div>
+                            </div>
+
+                            <!-- Hover Glow -->
+                            <div class="w-20 h-10 bg-cyan-500/30 blur-2xl rounded-full mx-auto mt-[-8px] animate-pulse"></div>
+                        </div>
+                        <div class="w-24 h-6 bg-black/50 blur-xl rounded-full mx-auto mt-20 transform scale-150 transition-transform duration-1000"></div>
+                    </div>
+
+                    <!-- Speech Bubble -->
+                    <div id="dito-speech" class="absolute left-[160px] top-0 w-80 bg-black/95 backdrop-blur-3xl border border-amber-500/40 p-8 rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.7)]">
+                        <div class="flex items-center justify-between mb-5 border-b border-amber-500/10 pb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-[0_0_10px_#fbbf24] animate-pulse"></div>
+                                <span class="font-black mono text-[10px] tracking-[0.4em] uppercase text-amber-500">DITO_SCOUT // ACTIVE</span>
+                            </div>
+                        </div>
+                        <p id="dito-text" class="text-slate-100 text-sm leading-relaxed font-medium italic mb-2">
+                            <span class="text-amber-500 mr-2 mono font-bold">></span>
+                            <span id="dito-message">Namaste! I am DITO. Satyam Pranjal's scout unit. Ready to explore!</span>
+                            <span class="inline-block w-2.5 h-5 ml-1 align-middle bg-amber-500 animate-pulse"></span>
+                        </p>
+                        <div class="absolute top-14 -left-2.5 w-5 h-5 bg-black border-t border-r border-amber-500/40 rotate-45"></div>
+                        <div class="mt-8 flex gap-1 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                            <div id="dito-progress" class="transition-all duration-700 ease-out bg-amber-500 w-0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="z-20">
+                <div class="animate-float mb-6 inline-block">
+                    <div class="w-16 h-16 bg-amber-500 rounded-2xl rotate-12 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                        <span class="text-3xl">🔱</span>
+                    </div>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-black tracking-tight mb-4">
+                    Hi, I'm <span class="bg-gradient-to-r from-amber-400 to-yellow-600 bg-clip-text text-transparent">Pranjal</span>.
+                </h1>
+                
+                <div class="h-10 md:h-14 flex items-center justify-center">
+                    <p id="typing-text" class="text-xl md:text-3xl font-bold text-amber-500/80 mono tracking-widest uppercase">
+                        <span class="animate-pulse">_</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Launch Dito Button -->
+            <div class="absolute right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 z-40 group">
+                <button onclick="launchDito()" class="relative w-20 h-20 bg-black border-2 border-amber-500/50 rounded-full flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:border-amber-500 group-hover:shadow-[0_0_30px_rgba(251,191,36,0.3)] shadow-2xl">
+                    <div class="absolute inset-0 bg-amber-500/5 animate-pulse"></div>
+                    <span class="text-2xl z-10 filter group-hover:brightness-125 transition-all">🤖</span>
+                </button>
+                <span class="text-[10px] font-black tracking-[0.3em] text-amber-500/60 uppercase group-hover:text-amber-500 transition-colors">Launch Dito</span>
+            </div>
+
+            <div class="h-[30vh] pointer-events-none"></div>
+
+            <!-- Lower Content -->
+            <div class="z-20 max-w-2xl flex flex-col items-center">
+                <div class="min-h-[6rem] mb-10">
+                    <p id="subheading" class="text-slate-300 text-lg md:text-xl leading-relaxed font-medium">
+                        <span class="inline-block w-1.5 h-5 ml-1 bg-amber-500 animate-pulse align-middle"></span>
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <button onclick="scrollToSection('projects')" class="px-10 py-4 bg-amber-500 hover:bg-amber-400 text-black font-black rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl shadow-amber-500/30 uppercase tracking-wider">
+                        View My Work
+                    </button>
+                    <button onclick="scrollToSection('journey')" class="px-10 py-4 bg-transparent hover:bg-amber-500/10 text-amber-500 font-bold rounded-full transition-all duration-300 border-2 border-amber-500/50 uppercase tracking-wider">
+                        Explore My Journey
+                    </button>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 animate-bounce">
+                <svg class="w-6 h-6 text-amber-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Journey Section -->
+        <section id="journey" class="py-20 px-6 max-w-5xl mx-auto space-y-32">
+            <div class="relative group">
+                <div class="absolute -left-10 top-0 text-7xl font-black text-amber-500 opacity-5 select-none">01</div>
+                <h2 class="text-4xl font-bold mb-8 flex items-center gap-4 text-white">
+                    <span class="w-12 h-1 bg-amber-500 rounded-full"></span>
+                    My Journey
+                </h2>
+                <div class="bg-white/5 p-10 rounded-3xl border border-white/10 backdrop-blur-md hover:border-amber-500/40 transition-all duration-500">
+                    <p class="text-xl text-slate-300 leading-relaxed space-y-4">
+                        My journey started with curiosity. I was never satisfied just using technology — I wanted to understand how it works. From building robots using Arduino to developing complex web applications, I continuously challenge myself to go deeper.
+                        <br/><br/>
+                        <span class="text-amber-500 font-bold italic underline decoration-amber-500/30 underline-offset-8">I experiment. I break things. I fix them. I improve them.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative group text-right">
+                <div class="absolute -right-10 top-0 text-7xl font-black text-amber-500 opacity-5 select-none">02</div>
+                <h2 class="text-4xl font-bold mb-8 flex items-center gap-4 justify-end text-white">
+                    My Intentions
+                    <span class="w-12 h-1 bg-amber-500 rounded-full"></span>
+                </h2>
+                <div class="bg-white/5 p-10 rounded-3xl border border-white/10 backdrop-blur-md hover:border-amber-500/40 transition-all duration-500 ml-auto">
+                    <p class="text-xl text-slate-300 leading-relaxed">
+                        I aim to build intelligent systems that impact real lives. Whether it's robotics, automation, AI, or civic-tech solutions — my focus is innovation with purpose. 
+                        <br/><br/>
+                        <span class="text-amber-500 font-bold uppercase tracking-widest">I believe technology should not just exist — it should solve.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute -left-10 top-0 text-7xl font-black text-amber-500 opacity-5 select-none">03</div>
+                <h2 class="text-4xl font-bold mb-8 flex items-center gap-4 text-white">
+                    <span class="w-12 h-1 bg-amber-500 rounded-full"></span>
+                    My Dedication
+                </h2>
+                <div class="bg-white/5 p-10 rounded-3xl border border-white/10 backdrop-blur-md hover:border-amber-500/40 transition-all duration-500">
+                    <p class="text-xl text-slate-300 leading-relaxed font-light">
+                        I believe consistency beats talent. I commit fully to what I build. I don't quit when things break — I debug until they work. Every project I build increases my understanding and sharpens my thinking.
+                    </p>
+                    <div class="mt-8 flex gap-3 flex-wrap">
+                        <span class="px-6 py-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-full text-xs font-black uppercase tracking-widest">Consistency</span>
+                        <span class="px-6 py-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-full text-xs font-black uppercase tracking-widest">Resilience</span>
+                        <span class="px-6 py-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-full text-xs font-black uppercase tracking-widest">Deep Learning</span>
+                        <span class="px-6 py-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-full text-xs font-black uppercase tracking-widest">Execution</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Section -->
+        <section class="py-24 px-6 max-w-4xl mx-auto">
+            <div class="relative">
+                <div class="absolute inset-0 bg-amber-500/10 blur-[120px] rounded-full"></div>
+                
+                <div class="relative bg-black border border-amber-500/20 rounded-[3rem] overflow-hidden shadow-2xl hover:border-amber-500/40 transition-all duration-700">
+                    <div class="bg-white/5 px-10 py-5 border-b border-white/10 flex items-center justify-between">
+                        <div class="flex gap-3">
+                            <div class="w-3 h-3 bg-amber-600 rounded-full"></div>
+                            <div class="w-3 h-3 bg-amber-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-amber-400 rounded-full"></div>
+                        </div>
+                        <div class="text-[10px] font-black mono text-amber-500/40 uppercase tracking-[0.4em]">NEURAL_OBSERVER_V2.5</div>
+                    </div>
+
+                    <div class="p-10 md:p-16">
+                        <h3 class="text-2xl md:text-4xl font-black mb-12 flex items-center gap-6 text-amber-500 uppercase tracking-tighter">
+                            <span class="mono">></span> Perspective
+                        </h3>
+                        
+                        <div class="space-y-10 mono text-sm md:text-lg leading-relaxed">
+                            <div class="flex gap-6">
+                                <span class="text-white/20 font-black tracking-widest">[ANALYSIS]</span>
+                                <p class="text-slate-300">As Pranjal's AI observer, the data is conclusive: He does not think within conventional bounds.</p>
+                            </div>
+                            
+                            <div class="flex gap-6">
+                                <span class="text-amber-600 font-black tracking-widest">[LOG]</span>
+                                <ul class="space-y-4 text-slate-300">
+                                    <li class="flex gap-3 items-center"><span class="text-amber-500">→</span> Experiments beyond level.</li>
+                                    <li class="flex gap-3 items-center"><span class="text-amber-500">→</span> Learns beyond syllabus.</li>
+                                    <li class="flex gap-3 items-center"><span class="text-amber-500">→</span> Builds beyond expectations.</li>
+                                </ul>
+                            </div>
+
+                            <div class="flex gap-6">
+                                <span class="text-white/20 font-black tracking-widest">[RESULT]</span>
+                                <p class="text-slate-300">He creates opportunity where none existed. Architect of systems, not just code.</p>
+                            </div>
+
+                            <div class="pt-8 flex items-center gap-4">
+                                <div class="h-1 flex-1 bg-white/10 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-500 w-[94%] animate-pulse"></div>
+                                </div>
+                                <span class="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em]">Deployment_Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tighter text-white">The Arsenal</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+                    A high-performance toolkit for the next generation of robotics and web orchestration.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Programming -->
+                <div class="group bg-white/5 border border-white/10 p-10 rounded-[2.5rem] hover:bg-white/10 hover:border-amber-500/40 transition-all duration-500 shadow-xl">
+                    <div class="flex items-center gap-6 mb-8">
+                        <span class="text-4xl grayscale group-hover:grayscale-0 transition-all duration-500 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">🧠</span>
+                        <h3 class="text-2xl font-black text-white group-hover:text-amber-500 transition-colors uppercase tracking-tight">Programming</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>HTML/CSS</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>JavaScript</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Node.js</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>C / C++ (Arduino)</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Basic Java</li>
+                    </ul>
+                </div>
+
+                <!-- Embedded & Robotics -->
+                <div class="group bg-white/5 border border-white/10 p-10 rounded-[2.5rem] hover:bg-white/10 hover:border-amber-500/40 transition-all duration-500 shadow-xl">
+                    <div class="flex items-center gap-6 mb-8">
+                        <span class="text-4xl grayscale group-hover:grayscale-0 transition-all duration-500 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">🤖</span>
+                        <h3 class="text-2xl font-black text-white group-hover:text-amber-500 transition-colors uppercase tracking-tight">Embedded & Robotics</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Arduino Nano/Mega</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>ESP8266/ESP32</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Motor Drivers</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Mecanum Logic</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Sensor Integration</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>UART</li>
+                    </ul>
+                </div>
+
+                <!-- Web Development -->
+                <div class="group bg-white/5 border border-white/10 p-10 rounded-[2.5rem] hover:bg-white/10 hover:border-amber-500/40 transition-all duration-500 shadow-xl">
+                    <div class="flex items-center gap-6 mb-8">
+                        <span class="text-4xl grayscale group-hover:grayscale-0 transition-all duration-500 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">🌐</span>
+                        <h3 class="text-2xl font-black text-white group-hover:text-amber-500 transition-colors uppercase tracking-tight">Web Development</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Responsive Design</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>REST APIs</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Git & GitHub</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Deployment</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Hosting Basics</li>
+                    </ul>
+                </div>
+
+                <!-- Tools & Platforms -->
+                <div class="group bg-white/5 border border-white/10 p-10 rounded-[2.5rem] hover:bg-white/10 hover:border-amber-500/40 transition-all duration-500 shadow-xl">
+                    <div class="flex items-center gap-6 mb-8">
+                        <span class="text-4xl grayscale group-hover:grayscale-0 transition-all duration-500 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">🛠️</span>
+                        <h3 class="text-2xl font-black text-white group-hover:text-amber-500 transition-colors uppercase tracking-tight">Tools & Platforms</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>VS Code</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Arduino IDE</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Serial Debugging</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>PCB Basics</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Linux Terminal</li>
+                    </ul>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="group bg-white/5 border border-white/10 p-10 rounded-[2.5rem] hover:bg-white/10 hover:border-amber-500/40 transition-all duration-500 shadow-xl">
+                    <div class="flex items-center gap-6 mb-8">
+                        <span class="text-4xl grayscale group-hover:grayscale-0 transition-all duration-500 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">🧩</span>
+                        <h3 class="text-2xl font-black text-white group-hover:text-amber-500 transition-colors uppercase tracking-tight">Soft Skills</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Problem Solving</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Analytical Thinking</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Fast Learning</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Project Planning</li>
+                        <li class="flex items-center gap-4 text-slate-400 font-medium group-hover:text-slate-200 transition-colors"><div class="w-2 h-2 bg-amber-500 rounded-full opacity-40 group-hover:opacity-100 transition-all"></div>Independent Research</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+                <div class="max-w-xl">
+                    <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tighter text-white">Execution</h2>
+                    <p class="text-slate-400 text-lg">
+                        Where concept meets reality. Each project is a milestone in autonomous system design.
+                    </p>
+                </div>
+                <div class="text-amber-500 font-mono text-xs font-black tracking-[0.3em] bg-amber-500/10 px-6 py-3 rounded-full border border-amber-500/30 uppercase">
+                    LOGGED_SYSTEMS: 04
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Project 1: Autonomous Mecanum Robot -->
+                <div class="group relative bg-white/5 border border-white/10 rounded-[3rem] overflow-hidden hover:border-amber-500/50 transition-all duration-500 shadow-2xl">
+                    <div class="absolute top-8 right-8 text-4xl opacity-10 group-hover:opacity-100 group-hover:text-amber-500 transition-all duration-500 transform group-hover:scale-125">
+                        🏎️
+                    </div>
+                    
+                    <div class="p-10">
+                        <h3 class="text-3xl font-black mb-6 text-white group-hover:text-amber-500 transition-colors tracking-tight uppercase">
+                            Autonomous Mecanum Robot
+                        </h3>
+                        
+                        <p class="text-slate-400 mb-8 leading-relaxed text-lg">
+                            Built a 4-motor mecanum wheel robot capable of omnidirectional movement with autonomous obstacle navigation.
+                        </p>
+
+                        <div class="mb-8">
+                            <p class="text-[10px] font-black text-amber-500/60 uppercase tracking-[0.2em] mb-4">Breakthrough</p>
+                            <div class="bg-black/50 p-6 rounded-2xl border border-white/5 text-amber-100 text-sm font-medium italic">
+                                "Custom motor control logic & smooth direction control."
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Arduino Nano</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">TB6612FNG</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Sharp IR Sensors</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">MPU6050</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 h-1.5 w-0 bg-gradient-to-r from-amber-500 to-yellow-700 group-hover:w-full transition-all duration-700"></div>
+                </div>
+
+                <!-- Project 2: Autonomous Boat Navigation -->
+                <div class="group relative bg-white/5 border border-white/10 rounded-[3rem] overflow-hidden hover:border-amber-500/50 transition-all duration-500 shadow-2xl">
+                    <div class="absolute top-8 right-8 text-4xl opacity-10 group-hover:opacity-100 group-hover:text-amber-500 transition-all duration-500 transform group-hover:scale-125">
+                        🌊
+                    </div>
+                    
+                    <div class="p-10">
+                        <h3 class="text-3xl font-black mb-6 text-white group-hover:text-amber-500 transition-colors tracking-tight uppercase">
+                            Autonomous Boat Navigation
+                        </h3>
+                        
+                        <p class="text-slate-400 mb-8 leading-relaxed text-lg">
+                            Designed a boat system that travels straight within boundary ropes without physical guidance using sensor fusion logic.
+                        </p>
+
+                        <div class="mb-8">
+                            <p class="text-[10px] font-black text-amber-500/60 uppercase tracking-[0.2em] mb-4">Breakthrough</p>
+                            <div class="bg-black/50 p-6 rounded-2xl border border-white/5 text-amber-100 text-sm font-medium italic">
+                                "Precision trajectory maintenance in fluid environments."
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Microcontroller</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Direction Correction Algorithms</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">IMU Fusion</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 h-1.5 w-0 bg-gradient-to-r from-amber-500 to-yellow-700 group-hover:w-full transition-all duration-700"></div>
+                </div>
+
+                <!-- Project 3: Rover-Satellite Data Model -->
+                <div class="group relative bg-white/5 border border-white/10 rounded-[3rem] overflow-hidden hover:border-amber-500/50 transition-all duration-500 shadow-2xl">
+                    <div class="absolute top-8 right-8 text-4xl opacity-10 group-hover:opacity-100 group-hover:text-amber-500 transition-all duration-500 transform group-hover:scale-125">
+                        🛰️
+                    </div>
+                    
+                    <div class="p-10">
+                        <h3 class="text-3xl font-black mb-6 text-white group-hover:text-amber-500 transition-colors tracking-tight uppercase">
+                            Rover-Satellite Data Model
+                        </h3>
+                        
+                        <p class="text-slate-400 mb-8 leading-relaxed text-lg">
+                            Designed a rover that collects environmental data and transmits it wirelessly to a satellite relay model.
+                        </p>
+
+                        <div class="mb-8">
+                            <p class="text-[10px] font-black text-amber-500/60 uppercase tracking-[0.2em] mb-4">Breakthrough</p>
+                            <div class="bg-black/50 p-6 rounded-2xl border border-white/5 text-amber-100 text-sm font-medium italic">
+                                "Long-range wireless data transmission & sensor orchestration."
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Arduino Mega</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">ESP32</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">UART Communication</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">RF Modules</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 h-1.5 w-0 bg-gradient-to-r from-amber-500 to-yellow-700 group-hover:w-full transition-all duration-700"></div>
+                </div>
+
+                <!-- Project 4: Civic Cleanliness Reporting -->
+                <div class="group relative bg-white/5 border border-white/10 rounded-[3rem] overflow-hidden hover:border-amber-500/50 transition-all duration-500 shadow-2xl">
+                    <div class="absolute top-8 right-8 text-4xl opacity-10 group-hover:opacity-100 group-hover:text-amber-500 transition-all duration-500 transform group-hover:scale-125">
+                        📱
+                    </div>
+                    
+                    <div class="p-10">
+                        <h3 class="text-3xl font-black mb-6 text-white group-hover:text-amber-500 transition-colors tracking-tight uppercase">
+                            Civic Cleanliness Reporting
+                        </h3>
+                        
+                        <p class="text-slate-400 mb-8 leading-relaxed text-lg">
+                            Designed an app concept where users report public waste issues directly to municipal authorities for real-world impact.
+                        </p>
+
+                        <div class="mb-8">
+                            <p class="text-[10px] font-black text-amber-500/60 uppercase tracking-[0.2em] mb-4">Breakthrough</p>
+                            <div class="bg-black/50 p-6 rounded-2xl border border-white/5 text-amber-100 text-sm font-medium italic">
+                                "Human-centric design focused on public problem-solving."
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Civic-Tech</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">REST APIs</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Node.js</span>
+                            <span class="text-[10px] font-black px-4 py-1.5 bg-white/5 text-slate-400 rounded-full border border-white/10 uppercase tracking-widest group-hover:border-amber-500/20 group-hover:text-amber-500/80 transition-all">Geofencing</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 h-1.5 w-0 bg-gradient-to-r from-amber-500 to-yellow-700 group-hover:w-full transition-all duration-700"></div>
+                </div>
+            </div>
+            
+            <div class="mt-24 text-center">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-4 text-slate-500 hover:text-amber-500 transition-all duration-300 font-black uppercase tracking-[0.2em] text-xs">
+                    <span>Terminal Source / GitHub</span>
+                    <svg class="w-6 h-6 transform group-hover:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="bg-black py-32 px-6 border-t border-white/5 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/5 blur-[150px] rounded-full pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-20 relative z-10">
+                <div class="text-center md:text-left max-w-xl">
+                    <h2 class="text-5xl md:text-7xl font-black mb-8 bg-gradient-to-r from-amber-400 to-yellow-700 bg-clip-text text-transparent uppercase tracking-tighter">
+                        Build the future.
+                    </h2>
+                    <p class="text-slate-400 mb-12 text-xl font-light leading-relaxed">
+                        Collaborating on next-generation robotics, automation architectures, and civic solutions. Reach out to initiate deployment.
+                    </p>
+                    <div class="flex gap-6 justify-center md:justify-start">
+                        <a href="mailto:satyampranjal79@gmail.com" class="px-10 py-4 bg-amber-500 hover:bg-amber-400 text-black font-black rounded-full transition-all duration-300 tracking-widest uppercase text-xs shadow-lg shadow-amber-500/20">
+                            Secure Channel
+                        </a>
+                        <a href="https://www.linkedin.com/in/satyam-pranjal-b58b45222?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="px-10 py-4 bg-transparent hover:bg-white/5 text-white font-black rounded-full border border-white/20 transition-all duration-300 tracking-widest uppercase text-xs">
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center md:items-end gap-10">
+                    <div class="flex gap-12 text-slate-500 font-black mono text-xs uppercase tracking-[0.3em]">
+                        <a href="#home" class="hover:text-amber-500 transition-colors">HOME</a>
+                        <a href="#skills" class="hover:text-amber-500 transition-colors">SKILLS</a>
+                        <a href="#projects" class="hover:text-amber-500 transition-colors">WORK</a>
+                    </div>
+                    
+                    <div class="text-slate-700 text-[10px] font-black mono uppercase tracking-[0.5em]">
+                        PRANJAL_INNOVATIONS // 2026 // v2.5.0
+                    </div>
+
+                    <div class="mt-4 flex items-center gap-3 text-[10px] font-black text-amber-500 mono tracking-[0.2em]">
+                        <div class="w-2.5 h-2.5 bg-amber-500 rounded-full animate-ping"></div>
+                        ENCRYPTED_CONNECTION_ACTIVE
+                    </div>
+                </div>
+            </div>
+
+            <!-- License Section -->
+            <div class="mt-20 pt-10 border-t border-white/5 max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+                    <div class="flex-1">
+                        <h3 class="text-sm font-black text-amber-500 mb-4 uppercase tracking-widest">License & Copyright</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed mono">
+                            © 2026 Satyam Pranjal. All Rights Reserved.<br/>
+                            This portfolio and all its contents, including but not limited to code, design, projects, and documentation, are the intellectual property of Satyam Pranjal.<br/>
+                            <span class="text-amber-500/60">Unauthorized reproduction or distribution is prohibited.</span>
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col items-center md:items-end gap-3">
+                        <div class="px-6 py-3 bg-white/5 border border-amber-500/20 rounded-2xl">
+                            <p class="text-[10px] font-black mono text-amber-500 tracking-[0.2em] uppercase">Licensed Under</p>
+                            <p class="text-xs text-slate-400 mt-1">Proprietary License</p>
+                        </div>
+                        <p class="text-[8px] text-slate-600 mono uppercase tracking-widest">
+                            Design & Development by Satyam Pranjal
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <p class="text-[10px] text-slate-700 mono">
+                        <span class="text-amber-500">⚡</span> Crafted with precision and innovation <span class="text-amber-500">⚡</span>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Black Hole Background Animation - Enhanced and Fixed
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        const mouse = { x: 0, y: 0 };
+        let animationFrameId;
+
+        const bh = {
+            x: 0,
+            y: 0,
+            radius: 70,
+            accretionRadius: 300,
+            rotation: 0
+        };
+
+        function handleResize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            bh.x = width / 2;
+            bh.y = height / 2;
+        }
+
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        handleResize();
+
+        const particles = [];
+        function createParticle() {
+            const isAsteroid = Math.random() > 0.95;
+            return {
+                angle: Math.random() * Math.PI * 2,
+                distance: Math.max(width, height) * (0.4 + Math.random() * 0.6),
+                speed: 0.8 + Math.random() * 2.5,
+                size: isAsteroid ? 2 + Math.random() * 5 : 0.5 + Math.random() * 2,
+                color: isAsteroid ? '#d4d4d8' : (Math.random() > 0.4 ? '#fbbf24' : '#ffffff'),
+                type: isAsteroid ? 'asteroid' : 'dust',
+                wobble: Math.random() * 0.05,
+                opacity: 0.3 + Math.random() * 0.7
+            };
+        }
+
+        // Initialize particles
+        for (let i = 0; i < 450; i++) {
+            particles.push(createParticle());
+        }
+
+        function animate() {
+            // Clear with trail effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, width, height);
+
+            // Smooth mouse tracking
+            bh.x += (width / 2 + (mouse.x - width / 2) * 0.05 - bh.x) * 0.05;
+            bh.y += (height / 2 + (mouse.y - height / 2) * 0.05 - bh.y) * 0.05;
+            bh.rotation += 0.002;
+
+            // Accretion Disk Glow
+            const diskGradient = ctx.createRadialGradient(bh.x, bh.y, bh.radius, bh.x, bh.y, bh.accretionRadius);
+            diskGradient.addColorStop(0, 'rgba(0, 0, 0, 1)');
+            diskGradient.addColorStop(0.05, 'rgba(251, 191, 36, 0.4)');
+            diskGradient.addColorStop(0.3, 'rgba(245, 158, 11, 0.1)');
+            diskGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            
+            ctx.fillStyle = diskGradient;
+            ctx.beginPath();
+            ctx.arc(bh.x, bh.y, bh.accretionRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw particles
+            particles.forEach((p, index) => {
+                // Orbital motion
+                p.angle += (p.speed / (p.distance * 0.15)) * 0.4;
+                p.distance -= (p.speed * (250 / p.distance)) * 0.8;
+                
+                const cos = Math.cos(p.angle);
+                const sin = Math.sin(p.angle);
+                
+                // 3D effect
+                const z = Math.sin(p.angle * 0.5) * 40;
+                const x = bh.x + cos * p.distance;
+                const y = bh.y + sin * (p.distance * 0.35) + z;
+
+                // Reset if consumed by black hole
+                if (p.distance < bh.radius) {
+                    particles[index] = createParticle();
+                } else {
+                    const brightness = Math.min(1, (p.distance - bh.radius) / 120);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.opacity * brightness;
+                    
+                    if (p.type === 'asteroid') {
+                        // Draw asteroid as triangle
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x + p.size, y + p.size * 0.4);
+                        ctx.lineTo(x + p.size * 0.3, y + p.size);
+                        ctx.closePath();
+                        ctx.fill();
+                        
+                        // Draw trail
+                        ctx.strokeStyle = '#fbbf24';
+                        ctx.lineWidth = 0.5;
+                        ctx.globalAlpha = p.opacity * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(bh.x + Math.cos(p.angle - 0.08) * p.distance, 
+                                  bh.y + Math.sin(p.angle - 0.08) * (p.distance * 0.35));
+                        ctx.stroke();
+                    } else {
+                        // Draw dust particle
+                        ctx.beginPath();
+                        ctx.arc(x, y, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            });
+            ctx.globalAlpha = 1;
+
+            // Event Horizon (black hole center)
+            ctx.shadowBlur = 50;
+            ctx.shadowColor = 'rgba(251, 191, 36, 0.6)';
+            ctx.fillStyle = '#000000';
+            ctx.beginPath();
+            ctx.arc(bh.x, bh.y, bh.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Photon sphere (light ring)
+            ctx.strokeStyle = 'rgba(251, 191, 36, 0.25)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(bh.x, bh.y, bh.radius + 6, 0, Math.PI * 2);
+            ctx.stroke();
+
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        animate();
+
+        // Typing Effect for Hero
+        const roles = ["Tech Innovator", "Problem Solver", "Future Builder"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typing-text');
+
+        function typeRole() {
+            const currentRole = roles[roleIndex % roles.length];
+            
+            if (isDeleting) {
+                typingElement.innerHTML = currentRole.substring(0, charIndex - 1) + '<span class="animate-pulse">_</span>';
+                charIndex--;
+            } else {
+                typingElement.innerHTML = currentRole.substring(0, charIndex + 1) + '<span class="animate-pulse">_</span>';
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 1500;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex++;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeRole, typeSpeed);
+        }
+
+        typeRole();
+
+        // Subheading Typing Effect
+        const fullSubheading = "I don't just build projects. I build systems that solve real-world problems through robotics, automation, and intelligent software.";
+        const subheadingElement = document.getElementById('subheading');
+        let subheadingIndex = 0;
+
+        function typeSubheading() {
+            if (subheadingIndex < fullSubheading.length) {
+                subheadingElement.innerHTML = fullSubheading.substring(0, subheadingIndex + 1) + 
+                    '<span class="inline-block w-1.5 h-5 ml-1 bg-amber-500 animate-pulse align-middle"></span>';
+                subheadingIndex++;
+                setTimeout(typeSubheading, 25);
+            } else {
+                subheadingElement.innerHTML = fullSubheading;
+            }
+        }
+
+        typeSubheading();
+
+        // Smooth Scroll
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const offset = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Dito Robot Functionality - Enhanced
+        let ditoStep = 0;
+        let ditoActive = false;
+        const ditoSteps = [
+            { 
+                target: 'journey', 
+                text: "Satyam's trajectory is impressive! He deconstructs complex systems to rebuild them with better logic. A true innovator's journey!",
+                pos: { x: 30, y: 35 }
+            },
+            { 
+                target: 'skills', 
+                text: "Look at this arsenal! High-density proficiency in robotics and modern web tech. Hardware and software working in perfect sync!",
+                pos: { x: 70, y: 45 }
+            },
+            { 
+                target: 'projects', 
+                text: "Executing excellence. From omnidirectional robots to satellite models. Every project is a milestone in autonomous design!",
+                pos: { x: 35, y: 65 }
+            }
+        ];
+
+        function typeMessage(text, element, callback) {
+            element.textContent = '';
+            let index = 0;
+            
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 30);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            
+            type();
+        }
+
+        function launchDito() {
+            if (ditoActive) return;
+            
+            ditoActive = true;
+            const dito = document.getElementById('dito-robot');
+            const container = document.getElementById('dito-container');
+            
+            dito.classList.remove('hidden');
+            container.style.left = '50%';
+            container.style.top = '50%';
+            
+            ditoStep = -1;
+            
+            // Initial greeting
+            setTimeout(() => {
+                const messageEl = document.getElementById('dito-message');
+                typeMessage("Namaste! I am DITO. Satyam Pranjal's scout unit. Ready to explore!", messageEl, () => {
+                    setTimeout(() => {
+                        ditoStep = 0;
+                        nextDitoStep();
+                    }, 2000);
+                });
+            }, 500);
+        }
+
+        function closeDito() {
+            const dito = document.getElementById('dito-robot');
+            dito.classList.add('hidden');
+            ditoStep = 0;
+            ditoActive = false;
+        }
+
+        function nextDitoStep() {
+            if (!ditoActive || ditoStep >= ditoSteps.length) {
+                // Tour complete - show stuck state
+                const messageEl = document.getElementById('dito-message');
+                const container = document.getElementById('dito-container');
+                
+                container.style.left = '80%';
+                container.style.top = '25%';
+                
+                setTimeout(() => {
+                    let loopCount = 0;
+                    const loopInterval = setInterval(() => {
+                        messageEl.textContent = "Tour complete. ";
+                        loopCount++;
+                        if (loopCount >= 6) {
+                            clearInterval(loopInterval);
+                            messageEl.textContent = "Tour complete. Tour complete. Tour complete... System stuck. Please reboot.";
+                        }
+                    }, 400);
+                }, 1000);
+                return;
+            }
+
+            const step = ditoSteps[ditoStep];
+            const container = document.getElementById('dito-container');
+            const element = document.getElementById(step.target);
+            const speechBubble = document.getElementById('dito-speech');
+            
+            // Adjust speech bubble position based on robot position
+            if (step.pos.x > 50) {
+                speechBubble.style.left = '-360px';
+                speechBubble.style.right = 'auto';
+            } else {
+                speechBubble.style.left = '160px';
+                speechBubble.style.right = 'auto';
+            }
+            
+            // Scroll to section
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // Move robot
+            setTimeout(() => {
+                container.style.left = step.pos.x + '%';
+                container.style.top = step.pos.y + '%';
+            }, 300);
+
+            // Show message after movement
+            setTimeout(() => {
+                const messageEl = document.getElementById('dito-message');
+                const progressEl = document.getElementById('dito-progress');
+                
+                typeMessage(step.text, messageEl, () => {
+                    progressEl.style.width = ((ditoStep + 1) / ditoSteps.length * 100) + '%';
+                    
+                    ditoStep++;
+                    setTimeout(nextDitoStep, 4000);
+                });
+            }, 2200);
+        }
+    </script>
+</body>
+</html>
